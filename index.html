@@ -107,7 +107,7 @@
             padding: 0 20px;
         }
         
-        /* Controles - Botón Principal */
+        /* Controles - Botón Principal (MÁS DISCRETO) */
         .controls-bar{
             flex: 0 0 120px; /* Ancho fijo */
             display:flex; align-items:center; justify-content:center;
@@ -117,26 +117,36 @@
         }
 
         #main-play-button{
-            width:120px; height:120px; /* Botón más grande */
+            width:100px; /* Un poco más pequeño */
+            height:100px;
             border-radius:999px; border:none; cursor:pointer;
-            background: linear-gradient(180deg, var(--accent), var(--accent-2));
-            color:white; font-size:2.5rem; /* Icono más grande */
-            box-shadow: 0 16px 50px rgba(255,90,120,0.25), 0 0 20px rgba(255,120,150,0.15) inset;
+            background: var(--glass); /* Fondo de cristal */
+            border: 1px solid rgba(255,255,255,0.08); /* Borde de cristal */
+            color:var(--muted); /* Color tenue */
+            font-size:2rem; /* Icono un poco más pequeño */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4); /* Sombra más suave */
             display:grid; place-items:center;
-            transition: transform var(--transition), box-shadow var(--transition);
+            transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
         }
-        #main-play-button:hover{ transform: scale(1.04); box-shadow: 0 25px 70px rgba(255,70,110,0.4); }
-        #main-play-button:active{ transform: scale(.96); transition-duration: 100ms; }
-        .is-playing{
-             /* Clase renombrada para mayor claridad */
-            box-shadow: 0 0 0 0 rgba(255,70,110,0.25);
-            animation: pulse 1.8s infinite cubic-bezier(0.5, 0, 0.5, 1);
+        #main-play-button:hover{ 
+            transform: scale(1.05); 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5); 
+            background: rgba(255,255,255,0.08); /* Fondo ligeramente más brillante */
+            color: #fff; /* Icono blanco al hover */
         }
-        @keyframes pulse{
-            0%{ box-shadow: 0 0 0 0 rgba(255,70,110,0.25); }
-            70%{ box-shadow: 0 0 0 20px rgba(255,70,110,0); }
-            100%{ box-shadow: 0 0 0 0 rgba(255,70,110,0); }
+        #main-play-button:active{ 
+            transform: scale(.95); 
+            transition-duration: 100ms; 
         }
+        /* ESTADO ACTIVO (Reproduciendo) del botón principal más discreto */
+        #main-play-button.is-playing {
+            background: linear-gradient(180deg, var(--accent), var(--accent-2)); /* Color de acento tenue */
+            border-color: var(--accent);
+            color: white; /* Icono blanco */
+            box-shadow: 0 8px 20px rgba(255,90,120,0.2); /* Sombra de acento sutil */
+            transform: scale(1.0); /* Sin pulsación */
+        }
+
 
         /* Lista de Canciones */
         .song-list{
@@ -272,6 +282,7 @@
         @media (max-width: 980px){
             .main-section{ flex-direction: column; align-items: center; }
             .controls-bar{ flex: none; width:100%; height:auto; padding:12px; position: static; }
+            #main-play-button { width: 80px; height: 80px; font-size: 1.6rem; } /* Más pequeño en responsive */
             .playlist-header{ flex-direction:column; align-items:center; text-align:center; gap:12px; padding:24px; width:100%; }
             .cover-art{ width:200px; height:200px; flex:0 0 200px; }
             .playlist-info h1{ font-size:2.4rem; }
@@ -310,9 +321,9 @@
             </div>
             <div class="playlist-info">
                 <p>LISTA EXCLUSIVA</p>
-                <h1>"Mi playlist"</h1> 
-                <p>Hecho para: Bruno</p>
-                <div class="details">Hecho por Bruno Marconi • 10 Canciones</div>
+                <h1>"Mi Mix de Amor"</h1> 
+                <p>Hecho para: **[Nombre del Amigo/Pareja]**</p>
+                <div class="details">Hecho por **[Tu Nombre]** • 10 Canciones</div>
             </div>
         </header>
 
@@ -376,13 +387,13 @@
         // *****************************************************************
 
         const playlistData = [
-            { id: 1, title: "Congratulations", artist: "Tu Artista Favorito", src: "musica_fondo.mp3", duration: "3:15" },
-            { id: 2, title: "That´s its what i like", artist: "Bruno Mars", src: "cancion2.mp3", duration: "4:01" },
-            { id: 3, title: "Not you too", artist: "Drake", src: "cancion3.mp3", duration: "2:50" },
-            { id: 4, title: "You know how we do it", artist: "Ice Cub", src: "cancion4.mp3", duration: "5:12" },
-            { id: 5, title: "Orange Soda", artist: "Baby Keem", src: "cancion5.mp3", duration: "3:30" },
-            { id: 6, title: "YOGURCITO REMIX", artist: "Bless", src: "cancion6.mp3", duration: "4:20" },
-            { id: 7, title: "Otra noche en Miami", artist: "Bad Bunny", src: "cancion7.mp3", duration: "3:45" },
+            { id: 1, title: "Tu Canción de Amor", artist: "Tu Artista Favorito", src: "musica_fondo.mp3", duration: "3:15" },
+            { id: 2, title: "Nuestra Noche", artist: "Artista Romántico", src: "cancion2.mp3", duration: "4:01" },
+            { id: 3, title: "El Abrazo", artist: "La Pareja", src: "cancion3.mp3", duration: "2:50" },
+            { id: 4, title: "Mi Regalo", artist: "El Compositor", src: "cancion4.mp3", duration: "5:12" },
+            { id: 5, title: "Solo Tú", artist: "Amor Eterno", src: "cancion5.mp3", duration: "3:30" },
+            { id: 6, title: "Bajo las Estrellas", artist: "Noche Mágica", src: "cancion6.mp3", duration: "4:20" },
+            { id: 7, title: "Caminando Juntos", artist: "Dúo Perfecto", src: "cancion7.mp3", duration: "3:45" },
             { id: 8, title: "Susurros del Corazón", artist: "Melodía Suave", src: "cancion8.mp3", duration: "4:05" },
             { id: 9, title: "Eres Mi Todo", artist: "Voz Apasionada", src: "cancion9.mp3", duration: "3:55" },
             { id: 10, title: "Hasta el Fin del Mundo", artist: "Amor Infinito", src: "cancion10.mp3", duration: "5:00" },
@@ -514,97 +525,19 @@
         }
 
         function updateControls(isPlaying) {
-            const icon = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
-            const buttonClass = isPlaying ? 'is-playing' : '';
-            const playerClass = isPlaying ? '' : 'is-paused';
+            const mainIcon = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+            const playerIcon = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+            
+            mainPlayButton.innerHTML = mainIcon;
+            playerPlayPauseButton.innerHTML = playerIcon;
 
-            mainPlayButton.innerHTML = icon;
-            playerPlayPauseButton.innerHTML = icon;
-
-            // Clases de animación
+            // Clases de animación/estado
             mainPlayButton.classList.toggle('is-playing', isPlaying);
             playerPlayPauseButton.classList.toggle('is-paused', !isPlaying);
 
             // A11Y
-            mainPlayButton.setAttribute('aria-label', isPlaying ? 'Pausar Lista' : 'Reproducir Lista');
-            playerPlayPauseButton.setAttribute('aria-label', isPlaying ? 'Pausar' : 'Reproducir');
-        }
+            mainPlayButton.setAttribute('aria-label', isPlaying ? 'Pausar Lista' : '
 
-        function updateActiveItem(index) {
-            document.querySelectorAll('.song-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            const activeItem = document.querySelector(`.song-item[data-index="${index}"]`);
-            if (activeItem) {
-                activeItem.classList.add('active');
-            }
-        }
-
-        function updateProgress() {
-            if (!isSeeking && !isNaN(audio.duration) && isFinite(audio.duration)) {
-                const percent = (audio.currentTime / audio.duration) * 100;
-                progressIndicator.style.width = `${percent}%`;
-                currentTimeDisplay.textContent = formatTime(audio.currentTime);
-                durationTimeDisplay.textContent = formatTime(audio.duration);
-            }
-        }
-
-        // --- MANEJO DE EVENTOS ---
-        audio.addEventListener('play', () => updateControls(true));
-        audio.addEventListener('pause', () => updateControls(false));
-        audio.addEventListener('ended', playNext);
-        audio.addEventListener('timeupdate', updateProgress);
-        audio.addEventListener('loadedmetadata', updateProgress); // Actualizar duración al cargar
-
-        // Controles de la barra
-        mainPlayButton.addEventListener('click', togglePlayPause);
-        playerPlayPauseButton.addEventListener('click', togglePlayPause);
-        nextButton.addEventListener('click', playNext);
-        prevButton.addEventListener('click', playPrev);
-        
-        // Control de Volumen
-        volumeControl.addEventListener('input', (e) => {
-            audio.volume = e.target.value;
-        });
-
-        // Control de Progreso (Seeking)
-        progressBar.addEventListener('click', (e) => {
-            const rect = progressBar.getBoundingClientRect();
-            const clickX = e.clientX - rect.left;
-            const width = rect.width;
-            const seekTime = (clickX / width) * audio.duration;
-            
-            if (!isNaN(seekTime)) {
-                audio.currentTime = seekTime;
-                updateProgress(); // Actualizar inmediatamente la UI
-            }
-        });
-
-        // Inicialización
-        document.addEventListener('DOMContentLoaded', () => {
-            renderPlaylist();
-            // Cargar la primera canción sin reproducirla inicialmente
-            if (playlistData.length > 0) {
-                 audio.src = playlistData[0].src;
-                 audio.load();
-                 updatePlayerInfo(playlistData[0]);
-                 updateActiveItem(0);
-                 audio.volume = volumeControl.value; // Inicializar volumen
-                 updateControls(false); // Iniciar en estado de pausa
-            }
-        });
-
-        // Configuración de la Media Session para los controles del sistema (Mejorado)
-        if ('mediaSession' in navigator) {
-            navigator.mediaSession.setActionHandler('play', () => togglePlayPause());
-            navigator.mediaSession.setActionHandler('pause', () => togglePlayPause());
-            navigator.mediaSession.setActionHandler('nexttrack', () => playNext());
-            navigator.mediaSession.setActionHandler('previoustrack', () => playPrev());
-        }
-
-    </script>
-</body>
-</html>
 
 
 

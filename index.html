@@ -23,6 +23,7 @@
             --shadow-deep: 0 10px 30px rgba(0, 0, 0, 0.5);
             --transition-speed: 0.25s;
             --radius-lg: 12px;
+            --radius-sm: 4px;
         }
 
         * { 
@@ -37,13 +38,12 @@
             color: var(--text-light);
             min-height: 100vh;
             display: flex;
-            /* Modificado: ahora el body centra el contenido principal */
             justify-content: center; 
-            align-items: flex-start; /* Alineación arriba para permitir el scroll */
+            align-items: flex-start;
             padding: 20px;
         }
         
-        /* 2. CONTENEDOR PRINCIPAL Y SECCIONES (Ahora es solo la lista) */
+        /* 2. CONTENEDOR PRINCIPAL (Solo aloja la lista y el nuevo encabezado) */
         .music-player-container {
             width: 100%;
             max-width: 850px; 
@@ -53,7 +53,6 @@
             display: block;
             padding: 30px;
             z-index: 10;
-            /* ** ESPACIO PARA LA BARRA FIJA ** */
             margin-bottom: 120px; 
         }
 
@@ -63,44 +62,165 @@
             display: none; 
         }
 
+        /* ----------------------------------------------------- */
+        /* ✨ ESTILOS DEL ENCABEZADO DE PLAYLIST ✨ */
+        /* ----------------------------------------------------- */
+        .playlist-header {
+            display: flex;
+            align-items: flex-end; 
+            gap: 25px;
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .playlist-cover-large {
+            width: 150px;
+            height: 150px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-deep);
+            /* Gradiente de portada de ejemplo */
+            background-image: linear-gradient(135deg, #1f1f2a, #3498db80);
+        }
+        .playlist-info h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-light);
+            text-shadow: 0 0 10px rgba(52, 152, 219, 0.5); 
+        }
+        .playlist-info p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .playlist-info .creator {
+            color: var(--accent-main);
+            font-weight: 700;
+        }
+
+        /* ----------------------------------------------------- */
+        /* ✨ ESTILOS DE LA LISTA DE CANCIONES (NUEVOS) ✨ */
+        /* ----------------------------------------------------- */
+        .song-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Cabecera de la lista */
+        .song-list-header {
+            display: grid;
+            grid-template-columns: 40px 3fr 2fr 60px; /* # | Título | Artista | Duración */
+            gap: 15px;
+            padding: 10px 0;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 10px;
+        }
+        .song-list-header .artist {
+            /* Ocultar artista en el encabezado en móvil */
+            display: none; 
+        }
+
+        /* Item de la canción */
+        .song-item {
+            display: grid;
+            grid-template-columns: 40px 3fr 2fr 60px; /* Mismo grid que el encabezado */
+            gap: 15px;
+            align-items: center;
+            padding: 10px 0;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        /* Hover Effect */
+        .song-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            transform: scale(1.005);
+        }
+
+        /* Estilos de las columnas */
+        .song-item .index {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .song-item .title {
+            font-weight: 600;
+        }
+        .song-item .artist {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            /* Mostrar artista en el item */
+            display: block;
+        }
+        .song-item .duration {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        /* Estado ACTIVO de la canción */
+        .song-item.active {
+            background-color: rgba(52, 152, 219, 0.15); /* Fondo ligero de acento */
+            color: var(--accent-main);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
+            font-weight: 700;
+        }
+
+        .song-item.active .index,
+        .song-item.active .artist,
+        .song-item.active .duration {
+            color: var(--accent-main); /* Cambiar el color del texto mutado a acento */
+        }
+
+
+        /* ----------------------------------------------------- */
         /* 3. SECCIÓN DE PORTADA Y TÍTULO (Estilos para la barra fija) */
+        /* ----------------------------------------------------- */
         .cover-art-section {
             display: flex;
             align-items: center;
-            gap: 15px; /* Ajustado para la barra fija */
+            gap: 15px; 
             border-bottom: none;
             padding-bottom: 0;
         }
         .cover-image {
-            width: 50px; /* Ajustado para la barra fija */
-            height: 50px; /* Ajustado para la barra fija */
-            border-radius: 4px; /* Ajustado para la barra fija */
+            width: 50px; 
+            height: 50px; 
+            border-radius: var(--radius-sm); 
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            background-image: linear-gradient(135deg, #1f1f2a, #3498db80);
         }
-        .track-info h2 { margin: 0; font-size: 1.1rem; font-weight: 700; } /* Ajustado */
-        .track-info .artist-muted { color: var(--text-muted); margin: 2px 0 0; font-size: 0.85rem; } /* Ajustado */
+        .track-info h2 { margin: 0; font-size: 1.1rem; font-weight: 700; } 
+        .track-info .artist-muted { color: var(--text-muted); margin: 2px 0 0; font-size: 0.85rem; } 
 
-        /* 4. CONTROLES TÁCTILES MEJORADOS (Estilos para la barra fija) */
+        /* ----------------------------------------------------- */
+        /* 4. CONTROLES Y BOTONES (Estilos para la barra fija) */
+        /* ----------------------------------------------------- */
         .controls-section {
             display: flex;
-            flex-direction: row; /* En línea */
+            flex-direction: row; 
             align-items: center;
             gap: 10px;
             padding: 0;
-            flex-grow: 1; /* Permite que ocupe espacio central */
-            max-width: 450px; /* Limitar el ancho */
+            flex-grow: 1; 
+            max-width: 450px; 
+            justify-content: center; /* Centrar los controles */
         }
 
         .player-controls {
             display: flex;
             gap: 15px;
             align-items: center;
-            order: 2; /* Botones a la derecha de la barra de progreso */
         }
 
         .ctrl-btn {
-            width: 35px; height: 35px; /* Ajustado para la barra fija */
-            font-size: 0.9rem; /* Ajustado para la barra fija */
+            width: 35px; height: 35px; 
+            font-size: 0.9rem; 
             background: var(--bg-primary); 
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-muted);
@@ -117,11 +237,18 @@
             box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
             transform: translateY(-1px);
         }
+        
+        /* ESTADO ACTIVO PARA SHUFFLE/REPEAT */
+        .ctrl-btn.active {
+            color: var(--accent-main);
+            border-color: var(--accent-main);
+            background: rgba(52, 152, 219, 0.15);
+        }
 
         /* Botón Principal (Play/Pause) */
         .main-btn {
-            width: 45px; height: 45px; /* Ajustado para la barra fija */
-            font-size: 1.4rem; /* Ajustado para la barra fija */
+            width: 45px; height: 45px; 
+            font-size: 1.4rem; 
             background: var(--accent-main);
             color: var(--text-light);
             border: none;
@@ -142,18 +269,17 @@
             align-items: center;
             width: 100%;
             flex-grow: 1;
-            gap: 8px; /* Ajustado */
-            order: 1;
+            gap: 8px; 
         }
         .time-display {
             color: var(--text-muted);
-            font-size: 0.75rem; /* Ajustado */
-            width: 35px; /* Ajustado */
+            font-size: 0.75rem; 
+            width: 35px; 
             text-align: center;
         }
         .progress-bar {
             flex-grow: 1;
-            height: 6px; /* Ajustado */
+            height: 6px; 
             background: rgba(255, 255, 255, 0.1);
             border-radius: 3px;
             cursor: pointer;
@@ -172,65 +298,52 @@
             right: 0;
             top: 50%;
             transform: translate(50%, -50%);
-            width: 12px; /* Ajustado */
-            height: 12px; /* Ajustado */
+            width: 12px; 
+            height: 12px; 
             border-radius: 50%;
             background: var(--text-light);
             box-shadow: 0 0 6px var(--focus-ring);
         }
 
-        /* 5. LISTA DE CANCIONES (SIN CAMBIOS ESTRUCTURALES MAYORES) */
-        .song-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+        /* ----------------------------------------------------- */
+        /* ✨ ESTILOS DEL CONTROL DE VOLUMEN (NUEVOS) ✨ */
+        /* ----------------------------------------------------- */
+        .volume-controls {
             display: flex;
-            flex-direction: column;
-        }
-
-        .song-list-header {
-            display: grid;
-            grid-template-columns: 30px 4fr 3fr 1fr;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            font-weight: 600;
-            padding: 10px 0;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .song-item {
-            display: grid;
-            grid-template-columns: 30px 4fr 3fr 1fr;
             align-items: center;
-            padding: 12px 10px;
-            border-radius: 6px;
+            gap: 10px;
+        }
+        .volume-controls .ctrl-btn {
+            background: none;
+            border: none;
+        }
+        .volume-slider {
+            width: 80px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
             cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+            outline: none;
+            padding: 0;
+        }
+        /* Estilos del thumb (el circulito que se arrastra) */
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-main);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 5px var(--focus-ring);
+            margin-top: -4px; /* Centrar verticalmente */
         }
 
-        .song-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .song-item .index { color: var(--text-muted); font-size: 0.9rem; }
-        .song-item .title { font-weight: 600; color: var(--text-light); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .song-item .artist { color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .song-item .duration { text-align: right; color: var(--text-muted); font-size: 0.9rem; }
-
-        /* Estado Activo */
-        .song-item.active {
-            background: rgba(52, 152, 219, 0.1); 
-            color: var(--accent-main);
-            border-left: 3px solid var(--accent-main);
-            padding-left: 7px; 
-        }
-        .song-item.active .title,
-        .song-item.active .index {
-            color: var(--accent-main);
-        }
-
-        /* 6. BARRA DE REPRODUCTOR FIJA EN EL FONDO (NUEVO) */
+        /* ----------------------------------------------------- */
+        /* 6. BARRA DE REPRODUCTOR FIJA EN EL FONDO */
+        /* ----------------------------------------------------- */
         .fixed-player-bar {
             position: fixed; 
             bottom: 0;
@@ -241,7 +354,7 @@
             z-index: 100;
             padding: 15px 20px;
             display: flex;
-            justify-content: center; /* Centrar el contenido interno */
+            justify-content: center; 
             align-items: center;
             box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5); 
         }
@@ -249,7 +362,7 @@
             width: 100%;
             max-width: 850px;
             display: grid;
-            /* Info (auto) | Controles (Min Max) | Volumen/Otros (auto) */
+            /* Info (1fr) | Controles (450px max) | Volumen/Otros (1fr) */
             grid-template-columns: 1fr minmax(200px, 450px) 1fr; 
             align-items: center;
             margin: 0 auto;
@@ -258,58 +371,61 @@
             text-align: right;
         }
 
-        /* 7. RESPONSIVE AVANZADO PARA LA LISTA Y BARRA FIJA */
+        /* ----------------------------------------------------- */
+        /* 7. RESPONSIVE AVANZADO */
+        /* ----------------------------------------------------- */
         @media (max-width: 680px) {
-            body {
-                padding: 10px;
-            }
             .music-player-container {
-                padding: 15px;
-                margin-bottom: 90px; /* Menos espacio en móvil */
+                margin-bottom: 90px; 
+            }
+
+            .playlist-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 15px;
+                padding-bottom: 15px;
+            }
+            .playlist-info h1 {
+                font-size: 1.8rem;
             }
             
-            /* Ajuste de columnas para la lista */
-            .song-list-header, .song-item {
-                grid-template-columns: 30px 5fr 1fr; 
+            /* Lista de Canciones en móvil */
+            .song-list-header {
+                grid-template-columns: 40px 1fr 60px; /* # | Título + Artista | Duración */
+            }
+            .song-list-header .artist {
+                display: none; /* Ocultar columna explícita de Artista en cabecera */
+            }
+            .song-item {
+                grid-template-columns: 40px 1fr 60px; 
             }
             .song-item .artist {
-                display: none;
+                display: none; /* Ocultar columna explícita de Artista en el item */
             }
-            .song-list-header > div:nth-child(3) { /* Oculta la cabecera 'ARTISTA' */
-                display: none;
+            .song-item .title {
+                /* Combinar Título y Artista en una sola columna para ahorrar espacio */
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             
             /* Ajustes en la BARRA FIJA móvil */
-            .fixed-player-bar {
-                padding: 10px 15px;
-            }
             .player-content-wrap {
-                grid-template-columns: 1fr 1fr; /* Info | Controles */
-                gap: 10px;
+                grid-template-columns: 1fr 1fr; 
             }
             
             /* Ocultamos elementos largos en móvil */
             .progress-bar-wrap {
-                display: none; /* Quitamos la barra de progreso */
+                display: none; 
             }
             .right-spacer {
-                display: none; /* Quitamos el espacio derecho */
+                display: none; /* Quitamos el control de volumen en móvil para ahorrar espacio */
             }
             
             /* Ajustamos los controles */
             .controls-section {
-                justify-content: flex-end; /* Mueve los controles a la derecha */
-            }
-            .player-controls {
-                gap: 10px;
-            }
-            .main-btn {
-                width: 40px; height: 40px; 
-                font-size: 1.2rem;
-            }
-            .ctrl-btn {
-                width: 30px; height: 30px;
-                font-size: 0.8rem;
+                justify-content: flex-end; 
             }
         }
     </style>
@@ -317,6 +433,16 @@
 <body>
 
     <div class="music-player-container" role="main">
+        
+        <div class="playlist-header">
+            <div class="playlist-cover-large"></div> 
+            <div class="playlist-info">
+                <p class="type-muted">PLAYLIST PRIVADA</p>
+                <h1> Mini-spoty🎧</h1>
+                <p>Una colección de todo, perfecta para el código nocturno.</p>
+                <p>Creado por: <span class="creator">Bruno Marconi</span></p>
+            </div>
+        </div>
         
         <ul class="song-list" id="song-list-container" role="list">
             </ul>
@@ -326,7 +452,7 @@
         <div class="player-content-wrap">
             
             <div class="cover-art-section">
-                <img src="album-cover.jpg" alt="Portada del Álbum" class="cover-image">
+                <div class="cover-image"></div>
                 <div class="track-info">
                     <h2 id="player-title">Esperando Canción...</h2>
                     <p id="player-artist" class="artist-muted">Selecciona de la lista</p>
@@ -344,6 +470,7 @@
                 </div>
                 
                 <div class="player-controls">
+                    <button id="shuffle-button" class="ctrl-btn" aria-label="Reproducción Aleatoria"><i class="fas fa-random"></i></button>
                     <button id="prev-button" class="ctrl-btn" aria-label="Anterior"><i class="fas fa-backward"></i></button>
                     <button id="main-play-button" class="ctrl-btn main-btn" aria-label="Reproducir/Pausar"><i class="fas fa-play"></i></button>
                     <button id="next-button" class="ctrl-btn" aria-label="Siguiente"><i class="fas fa-forward"></i></button>
@@ -351,7 +478,13 @@
             </div>
             
             <div class="right-spacer">
+                <div class="volume-controls">
+                    <button id="mute-button" class="ctrl-btn" aria-label="Silenciar">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.01" value="1" aria-label="Control de Volumen">
                 </div>
+            </div>
             
         </div>
     </div>
@@ -361,13 +494,18 @@
             // *****************************************************************
             // 1. DATA (CONFIGURACIÓN DE LAS CANCIONES)
             // *****************************************************************
-            const playlistData = [
-                { id: 1, title: "Deep Night Theme", artist: "Minimalist Synth", duration: "3:45", src: "cancion1.mp3" },
-                { id: 2, title: "Future Echoes", artist: "Vaporwave Soul", duration: "4:01", src: "cancion2.mp3" },
-                { id: 3, title: "Quiet Resolve", artist: "Focus Tracks", duration: "2:50", src: "cancion3.mp3" },
-                { id: 4, title: "Nebula Dreams", artist: "Starlight Collective", duration: "5:12", src: "cancion4.mp3" },
-                { id: 5, title: "City Lights", artist: "Urban Groove", duration: "3:30", src: "cancion5.mp3" },
+            const originalPlaylistData = [
+                { id: 1, title: "Congratulations", artist: "Mac Miller", duration: "3:45", src: "cancion1.mp3" },
+                { id: 2, title: "That's What I Like", artist: "Bruno Mars", duration: "4:01", src: "cancion2.mp3" },
+                { id: 3, title: "Not you too", artist: "Drake", duration: "2:50", src: "cancion3.mp3" },
+                { id: 4, title: "You know how we do it", artist: "Ice Cube", duration: "5:12", src: "cancion4.mp3" },
+                { id: 5, title: "Orange Soda", artist: "Baby Keem", duration: "3:30", src: "cancion5.mp3" },
             ];
+
+            let playlistData = [...originalPlaylistData]; 
+            let currentTrackIndex = 0;
+            let isShuffling = false;
+            let lastVolume = 1; 
 
             // 2. REFERENCIAS DOM
             const audio = new Audio();
@@ -377,13 +515,14 @@
             const playerArtist = document.getElementById('player-artist');
             const nextButton = document.getElementById('next-button');
             const prevButton = document.getElementById('prev-button');
+            const shuffleButton = document.getElementById('shuffle-button'); 
             const progressBar = document.getElementById('progress-bar');
             const progressIndicator = document.getElementById('progress-indicator');
             const currentTimeDisplay = document.getElementById('current-time');
             const durationTimeDisplay = document.getElementById('duration-time');
+            const volumeSlider = document.getElementById('volume-slider'); 
+            const muteButton = document.getElementById('mute-button'); 
 
-            let currentTrackIndex = 0;
-            
             // --- UTILIDADES ---
             function formatTime(seconds) {
                 const minutes = Math.floor(seconds / 60);
@@ -391,9 +530,21 @@
                 return `${minutes}:${secs.toString().padStart(2, '0')}`;
             }
 
-            // --- RENDERIZADO INICIAL ---
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
+
+            // --- RENDERIZADO INICIAL Y ACTUALIZACIÓN DE UI ---
             function renderPlaylist() {
-                // Renderizar encabezado
+                // Actualiza el índice `id` de las canciones para que sean secuenciales en la lista visual
+                const displayedPlaylist = playlistData.map((song, index) => ({
+                    ...song,
+                    id: index + 1 
+                }));
+
                 songListContainer.innerHTML = `
                     <li class="song-list-header">
                         <div>#</div>
@@ -403,14 +554,13 @@
                     </li>
                 `;
                 
-                // Renderizar items
-                playlistData.forEach((song, index) => {
+                displayedPlaylist.forEach((song, index) => {
                     const item = document.createElement('li');
                     item.className = 'song-item';
-                    item.dataset.index = index;
+                    item.dataset.index = index; // Usamos el índice de la lista *actual*
                     item.setAttribute('role', 'listitem');
                     item.innerHTML = `
-                        <div class="index">${song.id}</div>
+                        <div class="index">${index + 1}</div>
                         <div class="title">${song.title}</div>
                         <div class="artist">${song.artist}</div>
                         <div class="duration">${song.duration}</div>
@@ -420,12 +570,10 @@
                 });
             }
 
-            // --- LÓGICA DE REPRODUCCIÓN Y UI ---
             function updateUI(song, isPlaying) {
                 playerTitle.textContent = song.title;
                 playerArtist.textContent = song.artist;
                 
-                // Actualizar icono de Play/Pause
                 mainPlayButton.innerHTML = isPlaying 
                     ? '<i class="fas fa-pause"></i>' 
                     : '<i class="fas fa-play"></i>';
@@ -439,13 +587,24 @@
                 });
             }
 
+            function updateVolumeIcon(volume) {
+                if (volume === 0) {
+                    muteButton.innerHTML = '<i class="fas fa-volume-off"></i>';
+                } else if (volume < 0.5) {
+                    muteButton.innerHTML = '<i class="fas fa-volume-down"></i>';
+                } else {
+                    muteButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+                }
+            }
+
+
+            // --- LÓGICA DE REPRODUCCIÓN Y CONTROL ---
             function playTrack(index) {
                 currentTrackIndex = index;
                 const song = playlistData[index];
                 audio.src = song.src;
                 audio.load();
 
-                // Intenta reproducir. Si falla por política de autoplay, actualiza la UI.
                 audio.play().then(() => {
                     updateUI(song, true);
                 }).catch(() => {
@@ -455,7 +614,6 @@
 
             function togglePlayPause() {
                 if (!audio.src || audio.src === window.location.href) {
-                    // Si no hay canción cargada, reproducir la primera
                     playTrack(currentTrackIndex);
                     return;
                 }
@@ -473,7 +631,6 @@
             }
             
             function playPrev() {
-                // Si la canción lleva más de 3 segundos, reiniciar. Si no, ir a la anterior.
                 if (audio.currentTime > 3) {
                     audio.currentTime = 0;
                     audio.play();
@@ -483,20 +640,67 @@
                 }
             }
 
+            // --- LÓGICA SHUFFLE ---
+            function toggleShuffle() {
+                isShuffling = !isShuffling;
+                
+                if (isShuffling) {
+                    shuffleButton.classList.add('active');
+                    const currentSong = playlistData[currentTrackIndex];
+                    shuffleArray(playlistData);
+                    currentTrackIndex = playlistData.findIndex(song => song.src === currentSong.src);
+                    
+                } else {
+                    shuffleButton.classList.remove('active');
+                    const currentSong = playlistData[currentTrackIndex];
+                    playlistData = [...originalPlaylistData];
+                    currentTrackIndex = playlistData.findIndex(song => song.src === currentSong.src);
+                }
+
+                renderPlaylist();
+                updateUI(playlistData[currentTrackIndex], !audio.paused);
+            }
+
+            // --- LÓGICA DE VOLUMEN ---
+            function handleVolumeChange() {
+                const volume = parseFloat(volumeSlider.value);
+                audio.volume = volume;
+                updateVolumeIcon(volume);
+                if (volume > 0) {
+                    lastVolume = volume;
+                }
+            }
+
+            function toggleMute() {
+                if (audio.volume > 0) {
+                    lastVolume = audio.volume;
+                    audio.volume = 0;
+                    volumeSlider.value = 0;
+                    updateVolumeIcon(0);
+                } else {
+                    const newVolume = lastVolume > 0 ? lastVolume : 0.5;
+                    audio.volume = newVolume;
+                    volumeSlider.value = newVolume;
+                    updateVolumeIcon(newVolume);
+                }
+            }
+
+
             // --- LISTENERS ---
             mainPlayButton.addEventListener('click', togglePlayPause);
             nextButton.addEventListener('click', playNext);
             prevButton.addEventListener('click', playPrev);
+            audio.onended = playNext; 
+            
+            shuffleButton.addEventListener('click', toggleShuffle);
 
-            // Eventos de Audio: La clave para la reproducción continua
+            volumeSlider.addEventListener('input', handleVolumeChange);
+            muteButton.addEventListener('click', toggleMute);
+
+
+            // Eventos de Audio para la UI
             audio.onplay = () => updateUI(playlistData[currentTrackIndex], true);
             audio.onpause = () => updateUI(playlistData[currentTrackIndex], false);
-            
-            /**
-              * FUNCIONALIDAD REQUERIDA: Pasa a la siguiente canción al terminar
-              */
-            audio.onended = playNext; 
-
             audio.onloadedmetadata = () => {
                 durationTimeDisplay.textContent = formatTime(audio.duration);
             };
@@ -520,8 +724,9 @@
 
             // --- INICIALIZACIÓN ---
             renderPlaylist();
-            // Cargar la información inicial sin empezar a reproducir
             updateUI(playlistData[currentTrackIndex], false);
+            audio.volume = parseFloat(volumeSlider.value); 
+            updateVolumeIcon(audio.volume);
         });
     </script>
 </body>
